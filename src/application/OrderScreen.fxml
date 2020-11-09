@@ -8,27 +8,55 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane prefHeight="587.0" prefWidth="641.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="31.0" layoutY="23.0" text="Sandwich Type" />
-            <Label layoutX="171.0" layoutY="23.0" text="Ingredients Included" />
-            <TextArea layoutX="162.0" layoutY="46.0" prefHeight="127.0" prefWidth="152.0" />
-            <ImageView fitHeight="150.0" fitWidth="256.0" layoutX="346.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="31.0" layoutY="235.0" text="Ingredient Selection" />
-            <Label layoutX="336.0" layoutY="235.0" text="Extra Ingredients" />
-            <Button layoutX="211.0" layoutY="330.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" text="Add &gt;&gt;" />
-            <Button layoutX="209.0" layoutY="371.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="97.0" text="&lt;&lt; Remove" />
-            <Button layoutX="208.0" layoutY="413.0" mnemonicParsing="false" text="Clear Selected" />
-            <Button layoutX="517.0" layoutY="399.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" text="Add to Order" />
-            <Button layoutX="517.0" layoutY="438.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="97.0" text="Show Order" />
             <TextArea layoutX="1.0" layoutY="482.0" prefHeight="215.0" prefWidth="641.0" />
-            <ComboBox layoutX="28.0" layoutY="47.0" prefHeight="27.0" prefWidth="114.0" promptText="Chicken" />
-            <ListView layoutX="29.0" layoutY="269.0" prefHeight="200.0" prefWidth="162.0" />
-            <ListView layoutX="329.0" layoutY="266.0" prefHeight="200.0" prefWidth="162.0" />
+            <VBox layoutX="22.0" layoutY="32.0" prefHeight="177.0" prefWidth="149.0">
+               <children>
+                  <Label text="Sandwich Type" />
+                  <ComboBox prefHeight="27.0" prefWidth="114.0" promptText="Chicken" />
+               </children>
+            </VBox>
+            <VBox layoutX="164.0" layoutY="32.0" prefHeight="170.0" prefWidth="173.0">
+               <children>
+                  <Label text="Ingredients Included" />
+                  <TextArea prefHeight="127.0" prefWidth="72.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="346.0" layoutY="32.0" prefHeight="172.0" prefWidth="282.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+            <VBox layoutX="22.0" layoutY="230.0" prefHeight="248.0" prefWidth="175.0">
+               <children>
+                  <Label text="Ingredient Selection" />
+                  <ListView prefHeight="200.0" prefWidth="131.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="321.0" layoutY="230.0" prefHeight="220.0" prefWidth="176.0">
+               <children>
+                  <Label text="Extra Ingredients" />
+                  <ListView prefHeight="200.0" prefWidth="162.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="207.0" layoutY="352.0" prefHeight="94.0" prefWidth="102.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" text="Add &gt;&gt;" />
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="97.0" text="&lt;&lt; Remove" />
+                  <Button mnemonicParsing="false" text="Clear Selected" />
+               </children>
+            </VBox>
+            <VBox layoutX="518.0" layoutY="382.0" prefHeight="64.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" text="Add to Order" />
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="97.0" text="Show Order" />
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </top>
