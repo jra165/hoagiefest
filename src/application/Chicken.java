@@ -1,7 +1,7 @@
 package application;
 
 public class Chicken extends Sandwich {
-
+	
 	private static final double basePrice = 8.99;
 	
 	@Override
