@@ -11,10 +11,7 @@ public abstract class Sandwich implements Customizable {
 	
 	@Override
 	public String toString() {
-		
-		
-		
-		String sandwichOrder = "";
+		String sandwichOrder = "Sandwich;";
 		return sandwichOrder;
 	}
 }
