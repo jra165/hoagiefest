@@ -49,4 +49,23 @@ public class Fish extends Sandwich {
 		
 	}
 
+	@Override
+	public String toString() {
+		
+		StringBuilder extraIngredients = new StringBuilder();
+		
+		for (int i = 0; i < extras.size(); i++) {
+			extraIngredients.append(extras.get(i));
+			extraIngredients.append(", ");
+		}
+		
+		double priceItem = price();
+		
+		String sandwichOrder = "Fish " + super.toString() + " Grilled Snapper, Cilantro, Lime, Extra: " + extraIngredients + "Price $" + priceItem;
+		
+		return sandwichOrder;
+		
+	}
+
+	
 }
