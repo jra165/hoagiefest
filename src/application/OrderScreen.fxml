@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,22 +16,25 @@
    <top>
       <AnchorPane prefHeight="587.0" prefWidth="641.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea layoutX="1.0" layoutY="482.0" prefHeight="215.0" prefWidth="641.0" />
+            <TextArea fx:id="debugArea" layoutX="1.0" layoutY="482.0" prefHeight="215.0" prefWidth="641.0" />
             <VBox layoutX="22.0" layoutY="32.0" prefHeight="177.0" prefWidth="149.0">
                <children>
                   <Label text="Sandwich Type" />
-                  <ComboBox fx:id="sandwichType" prefHeight="27.0" prefWidth="114.0" promptText="Chicken" />
+                  <ComboBox fx:id="sandwichType" onAction="#changeSandwich" prefHeight="27.0" prefWidth="114.0" promptText="Chicken" />
                </children>
             </VBox>
             <VBox layoutX="164.0" layoutY="32.0" prefHeight="170.0" prefWidth="173.0">
                <children>
                   <Label text="Ingredients Included" />
-                  <TextArea fx:id="basicIngredients" prefHeight="127.0" prefWidth="72.0" />
+                  <TextArea fx:id="basicIngredients" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
-            <VBox layoutX="346.0" layoutY="32.0" prefHeight="172.0" prefWidth="282.0">
+            <VBox layoutX="412.0" layoutY="35.0" prefHeight="172.0" prefWidth="171.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="sandwichImage" fitHeight="150.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../_0000s_0013_Final__0052_CFA_PDP_Spicy-Chick-Fil-A-Sandwich_1085.png" />
+                     </image></ImageView>
                </children>
             </VBox>
             <VBox layoutX="22.0" layoutY="230.0" prefHeight="248.0" prefWidth="175.0">
