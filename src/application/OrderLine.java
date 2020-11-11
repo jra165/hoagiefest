@@ -11,4 +11,16 @@ public class OrderLine {
 		this.price = price;
 	}
 	
+	
+	/*public int getLineNumber() {
+		return lineNumber;
+	}*/
+	
+	public double getPrice() {		
+		return price;
+	}
+	
+	public void setLineNumber() {
+		this.lineNumber = this.lineNumber-1;
+	}
 }

@@ -49,5 +49,23 @@ public class Beef extends Sandwich {
 		
 	}
 
+	
+	@Override
+	public String toString() {
+		
+		StringBuilder extraIngredients = new StringBuilder();
+		
+		for (int i = 0; i < extras.size(); i++) {
+			extraIngredients.append(extras.get(i));
+			extraIngredients.append(", ");
+		}
+		
+		double priceItem = price();
+		
+		String sandwichOrder = "Beef " + super.toString() + " Roast Beef, Provolone, Mustard, Extra: " + extraIngredients + "Price $" + priceItem;
+		
+		return sandwichOrder;
+		
+	}
 
 }

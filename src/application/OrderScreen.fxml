@@ -19,13 +19,13 @@
             <VBox layoutX="22.0" layoutY="32.0" prefHeight="177.0" prefWidth="149.0">
                <children>
                   <Label text="Sandwich Type" />
-                  <ComboBox prefHeight="27.0" prefWidth="114.0" promptText="Chicken" />
+                  <ComboBox fx:id="sandwichType" prefHeight="27.0" prefWidth="114.0" promptText="Chicken" />
                </children>
             </VBox>
             <VBox layoutX="164.0" layoutY="32.0" prefHeight="170.0" prefWidth="173.0">
                <children>
                   <Label text="Ingredients Included" />
-                  <TextArea prefHeight="127.0" prefWidth="72.0" />
+                  <TextArea fx:id="basicIngredients" prefHeight="127.0" prefWidth="72.0" />
                </children>
             </VBox>
             <VBox layoutX="346.0" layoutY="32.0" prefHeight="172.0" prefWidth="282.0">
@@ -36,13 +36,13 @@
             <VBox layoutX="22.0" layoutY="230.0" prefHeight="248.0" prefWidth="175.0">
                <children>
                   <Label text="Ingredient Selection" />
-                  <ListView prefHeight="200.0" prefWidth="131.0" />
+                  <ListView fx:id="ingredientSelect" prefHeight="200.0" prefWidth="131.0" />
                </children>
             </VBox>
             <VBox layoutX="321.0" layoutY="230.0" prefHeight="220.0" prefWidth="176.0">
                <children>
                   <Label text="Extra Ingredients" />
-                  <ListView prefHeight="200.0" prefWidth="162.0" />
+                  <ListView fx:id="extraIngredientDisplay" prefHeight="200.0" prefWidth="162.0" />
                </children>
             </VBox>
             <VBox layoutX="207.0" layoutY="352.0" prefHeight="94.0" prefWidth="102.0">
@@ -54,11 +54,11 @@
             </VBox>
             <VBox layoutX="518.0" layoutY="382.0" prefHeight="64.0" prefWidth="100.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="96.0" text="Add to Order" />
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="97.0" text="Show Order" />
+                  <Button fx:id="orderButton" mnemonicParsing="false" onAction="#addOrder" prefHeight="27.0" prefWidth="96.0" text="Add to Order" />
+                  <Button mnemonicParsing="false" onAction="#showOrder" prefHeight="27.0" prefWidth="97.0" text="Show Order" />
                </children>
             </VBox>
-            <TextField layoutX="515.0" layoutY="327.0" prefHeight="15.0" prefWidth="106.0" />
+            <TextField fx:id="priceDisplay" layoutX="515.0" layoutY="327.0" prefHeight="15.0" prefWidth="106.0" />
             <Label layoutX="543.0" layoutY="304.0" text="Price $" />
          </children>
       </AnchorPane>
