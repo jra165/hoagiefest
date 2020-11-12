@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,16 +21,16 @@ import javafx.scene.image.ImageView;
 
 public class OrderScreenController {
 	
-	ArrayList<String> ingredients = Extra.getValues();
+	List<String> ingredients = Extra.getValues();
 	ArrayList<String> addOns = new ArrayList<String>();
 	
-	ObservableList<String> sandwichTypeList = FXCollections.observableArrayList
-			("Chicken", "Fish", "Beef");
 	String chickenIngredients = "Fried Chicken\nSpicy Sauce\nPickles";
 	String beefIngredients = "Roast Beef\nProvolone Cheese\nMustard";
 	String fishIngredients = "Grilled Snapper\nCilantro\nLime";
-	ObservableList<String> ingredientList = FXCollections.observableArrayList
-			(ingredients);
+	
+	
+	ObservableList<String> sandwichTypeList = FXCollections.observableArrayList("Chicken", "Fish", "Beef");
+	ObservableList<String> ingredientList = FXCollections.observableArrayList(ingredients);
 	ObservableList<String> addOnList = FXCollections.observableArrayList(addOns);
 	
     @FXML
@@ -66,24 +67,47 @@ public class OrderScreenController {
     private TextArea debugArea;
     
     Order order = new Order();
-        
+    Sandwich sandwich;
+    
+    
+    private void checkIngredientList(Sandwich sandwich, String ingredient, String action) {
+    	
+    	if (action.equals("add")) {
+    		for(Extra e : Extra.values()) {
+    			if(e.toString().equalsIgnoreCase(ingredient)) {
+    				//System.out.println(e.toString());
+    				sandwich.add(e);
+    			}
+    		}
+    	}
+    	else if (action.equals("remove")) {
+    		for(Extra e : Extra.values()) {
+    			if(e.toString().equalsIgnoreCase(ingredient)) {
+    				//System.out.println(e.toString());
+    				sandwich.remove(e);
+    			}
+    		}
+    	}
+    	
+    }
     
     //find out if this should be private
     @FXML
     private void initialize() {
     	
-    	final double DEFAULT_PRICE = 8.99;
+    	//final double DEFAULT_PRICE = 8.99;
     	
-    	sandwichType.setValue(sandwichTypeList.get(0));
+    	sandwich = new Chicken();
+    	
+    	sandwichType.setValue("Chicken");
     	sandwichType.setItems(sandwichTypeList);
-    	priceDisplay.setText(String.valueOf(DEFAULT_PRICE));
+    	priceDisplay.setText(String.valueOf(sandwich.price()));
     	
     	basicIngredients.setText(chickenIngredients);
     	basicIngredients.setDisable(true);
     	
     	ingredientSelect.setItems(ingredientList);
-    	
-    	
+    	extraIngredientDisplay.setItems(addOnList);
     	
     }
  
@@ -91,59 +115,19 @@ public class OrderScreenController {
     @FXML
     void addIngredient(ActionEvent event) {
     	
-    	String sandwichMeat = sandwichType.getValue();
     	String itemToAdd = ingredientSelect.getSelectionModel().getSelectedItem();
     	
-    	
-    	switch(sandwichMeat) {
-    	case "Chicken":
-    		Chicken chicken = new Chicken();
- 
-    		for(Extra e : Extra.values()) {
-    			
-    			if(e.toString().equals(itemToAdd)) {
-    				chicken.add(e);
-    				debugArea.setText("Good!");
-    			}
-    			
-    		}
-    		
+    	if (addOnList.size() < 6) {
+    		checkIngredientList(sandwich, itemToAdd, "add");
     		ingredientList.remove(itemToAdd);
     		addOnList.add(itemToAdd);
-    		priceDisplay.setText(String.valueOf(chicken.price()));
-    	
-    	case "Fish":
-    		Fish fish = new Fish();
     		
-    		for(Extra e : Extra.values()) {
-    			
-    			if(e.toString().equals(itemToAdd)) {
-    				fish.add(e);
-    			}
-    			
-    		}
-    		
-    		fish.add(itemToAdd);
-    		ingredientList.remove(itemToAdd);
-    		addOnList.add(itemToAdd);
-    		priceDisplay.setText(String.valueOf(fish.price()));
-    		
-    	case "Beef":
-    		Beef beef = new Beef();
-    		
-    		for(Extra e : Extra.values()) {
-    			
-    			if(e.toString().equals(itemToAdd)) {
-    				beef.add(e);
-    			}
-    			
-   		}
-    		
-    		beef.add(itemToAdd);
-    		ingredientList.remove(itemToAdd);
-    		addOnList.add(itemToAdd);
-    		priceDisplay.setText(String.valueOf(beef.price()));
-    		
+    		double sandwichPrice = sandwich.price();
+    		priceDisplay.setText(String.format("%.2f", sandwich.price()));
+
+    	}
+    	else {
+    		debugArea.appendText("Maximum of 6 ingredients already added.\n");
     	}
   	
     }
@@ -152,38 +136,43 @@ public class OrderScreenController {
     @FXML
     void addOrder(ActionEvent event) {
     	
-    	String sandwichMeat = sandwichType.getValue();
+    	OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), sandwich, sandwich.price());
+    	System.out.println("DONE");
     	
-    	switch(sandwichMeat) {
-    	case "Chicken":
-    		Chicken chicken = new Chicken();
-    		OrderLine chicken_orderline = new OrderLine(order.getLineNumber(), chicken, chicken.price());
-    		order.add(chicken_orderline);
-    	
-    	case "Fish":
-    		Fish fish = new Fish();
-    		OrderLine fish_orderline = new OrderLine(order.getLineNumber(), fish, fish.price());
-    		order.add(fish_orderline);
-    		
-    	case "Beef":
-    		Beef beef = new Beef();
-    		OrderLine beef_orderline = new OrderLine(order.getLineNumber(), beef, beef.price());
-    		order.add(beef_orderline);
-    		
-    	}
-
     }
     
     //clear will reset back to the defaults
     @FXML
     void clearSelections(ActionEvent event) {
-
+    	sandwich = new Chicken();
+    	
+    	sandwichType.setValue("Chicken");
+    	sandwichType.setItems(sandwichTypeList);
+    	priceDisplay.setText(String.valueOf(sandwich.price()));
+    	
+    	basicIngredients.setText(chickenIngredients);
+    	basicIngredients.setDisable(true);
+    	
+    	ingredientList = FXCollections.observableArrayList(ingredients);
+    	addOnList = FXCollections.observableArrayList(addOns);
+    	
+    	ingredientSelect.setItems(ingredientList);
+    	extraIngredientDisplay.setItems(addOnList);
+    	
+    	
     }
 
     //remove will move an ingredient from right to left, decrease price
     @FXML
     void removeIngredient(ActionEvent event) {
-
+    	String itemToRemove = extraIngredientDisplay.getSelectionModel().getSelectedItem();
+    	
+    	checkIngredientList(sandwich, itemToRemove, "remove");
+    	addOnList.remove(itemToRemove);
+    	ingredientList.add(itemToRemove);
+    	
+    	priceDisplay.setText(String.format("%.2f", sandwich.price()));
+    	
     }
     
     @FXML
@@ -192,9 +181,15 @@ public class OrderScreenController {
     	String sandwichMeat = sandwichType.getValue();
     	
     	if(sandwichMeat.equals("Chicken")) { 
-    		Chicken chicken = new Chicken();
-    		priceDisplay.setText(String.valueOf(chicken.getPrice()));
+    		sandwich = new Chicken();
+    		priceDisplay.setText(String.valueOf(sandwich.price()));
     		basicIngredients.setText(chickenIngredients);
+    		
+        	ingredientList = FXCollections.observableArrayList(ingredients);
+        	addOnList = FXCollections.observableArrayList(addOns);
+        	
+        	ingredientSelect.setItems(ingredientList);
+        	extraIngredientDisplay.setItems(addOnList);
     		
     		InputStream sandwichLink = new URL("https://www.cfacdn.com/img/order/COM/Menu_Refresh/Sides/Sides%20PDP/_0000s_0013_Final__0052_CFA_PDP_Spicy-Chick-Fil-A-Sandwich_1085.png").openStream();
     		Image chickenImage = new Image(sandwichLink);
@@ -203,9 +198,15 @@ public class OrderScreenController {
     	}
     	
     	else if(sandwichMeat.equals("Fish")) {
-    		Fish fish = new Fish();
-    		priceDisplay.setText(String.valueOf(fish.getPrice()));
+    		sandwich = new Fish();
+    		priceDisplay.setText(String.valueOf(sandwich.price()));
     		basicIngredients.setText(fishIngredients);
+    		
+        	ingredientList = FXCollections.observableArrayList(ingredients);
+        	addOnList = FXCollections.observableArrayList(addOns);
+        	
+        	ingredientSelect.setItems(ingredientList);
+        	extraIngredientDisplay.setItems(addOnList);
     		
     		InputStream sandwichLink = new URL("https://mcdonalds.eg/Cms_Data/Contents/En/Media/images/Menu/large-Image/Filet-O-Fish.png").openStream();
     		Image fishImage = new Image(sandwichLink);
@@ -214,11 +215,17 @@ public class OrderScreenController {
     		
     	}
     	
-    	else {
+    	else if (sandwichMeat.equals("Beef")) {
     		
-    		Beef beef = new Beef();
-    		priceDisplay.setText(String.valueOf(beef.getPrice()));
+    		sandwich = new Beef();
+    		priceDisplay.setText(String.valueOf(sandwich.price()));
     		basicIngredients.setText(beefIngredients);
+    		
+        	ingredientList = FXCollections.observableArrayList(ingredients);
+        	addOnList = FXCollections.observableArrayList(addOns);
+        	
+        	ingredientSelect.setItems(ingredientList);
+        	extraIngredientDisplay.setItems(addOnList);
     		
     		InputStream sandwichLink = new URL("https://arbysrva.com/wp-content/uploads/RoastBeef_Classic.png").openStream();
     		Image beefImage = new Image(sandwichLink);

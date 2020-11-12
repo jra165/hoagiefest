@@ -66,5 +66,30 @@ public class Order implements Customizable {
 		
 	}
 	
+	public String printOrder() {
+		
+		StringBuilder output = new StringBuilder("");
+		
+		if(lineNumber > 0) {
+			
+			for(int i = 0; i < lineNumber; i++) {
+				
+				output.append(orderlines.get(i).toString());
+				output.append("\n");
+				
+			}
+			
+		}
+		
+		else {
+			
+			output.append("Empty order.");
+			
+		}
+		
+		return output.toString();
+		
+	}
+	
 	
 }
