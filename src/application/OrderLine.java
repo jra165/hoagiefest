@@ -23,4 +23,10 @@ public class OrderLine {
 	public void setLineNumber() {
 		this.lineNumber = this.lineNumber-1;
 	}
+	
+	@Override
+	public String toString() {
+		String output = String.valueOf(lineNumber+1) + " " + sandwich.toString();
+		return output;
+	}
 }

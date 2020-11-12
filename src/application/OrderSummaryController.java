@@ -4,7 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,7 +41,7 @@ public class OrderSummaryController {
     @FXML
     private Button saveButton;
 
-    Order order = new Order();
+    //Order order = new Order();
     @FXML
     void addSameOrder(ActionEvent event) {
     	
@@ -76,10 +80,16 @@ public class OrderSummaryController {
 		File targeFile = chooser.showSaveDialog(stage);
 			
 		BufferedWriter bf = new BufferedWriter(new FileWriter(targeFile));
-		bf.write(order.printOrder());
+		//bf.write(order.printOrder());
 		bf.flush();
 		bf.close();
 
     }
+    
+    public void setListView(ArrayList<String> orderLines) {
+    	ObservableList<String> orderLinesList = FXCollections.observableArrayList(orderLines);
+    	orderTextArea.setItems(orderLinesList);
+    }
+
 
 }

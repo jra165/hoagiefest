@@ -1,11 +1,14 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.ObservableList;
 
 public class Order implements Customizable {
 
-	public static int lineNumber; // reset for each new order
-	private ArrayList<OrderLine> orderlines;
+	public static int lineNumber = 0; // reset for each new order
+	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 	
 	
 	public int getLineNumber() {
@@ -88,6 +91,31 @@ public class Order implements Customizable {
 		}
 		
 		return output.toString();
+		
+	}
+	
+	public ArrayList<String> toArrayList(){
+		
+		ArrayList<String> output=new ArrayList<String>();
+		
+		if(lineNumber > 0) {
+			
+			for(int i = 0; i < lineNumber; i++) {
+				
+				output.add(orderlines.get(i).toString());
+				
+			}
+			
+		}
+		
+		else {
+			
+			output.add("Empty order.");
+			
+		}
+		
+		return output;
+		
 		
 	}
 	

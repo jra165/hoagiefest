@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -18,10 +20,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 
 public class OrderScreenController {
 	
-	List<String> ingredients = Extra.getValues();
+	ArrayList<String> ingredients = Extra.getValues();
 	ArrayList<String> addOns = new ArrayList<String>();
 	
 	String chickenIngredients = "Fried Chicken\nSpicy Sauce\nPickles";
@@ -66,7 +71,7 @@ public class OrderScreenController {
     @FXML
     private TextArea debugArea;
     
-    Order order = new Order();
+    public Order order = new Order();
     Sandwich sandwich;
     
     
@@ -90,6 +95,9 @@ public class OrderScreenController {
     	}
     	
     }
+    
+    
+    
     
     //find out if this should be private
     @FXML
@@ -137,6 +145,9 @@ public class OrderScreenController {
     void addOrder(ActionEvent event) {
     	
     	OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), sandwich, sandwich.price());
+    	order.add(sandwich_orderline);
+    	
+    	//System.out.print(order.printOrder());
     	System.out.println("DONE");
     	
     }
@@ -238,8 +249,28 @@ public class OrderScreenController {
     @FXML
     void showOrder(ActionEvent event) {
     	
-    
+        try {
+        	
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderSummary.fxml"));
+        	Parent root = loader.load();
+        	
+        	OrderSummaryController orderSummaryController = loader.getController();
+        	//orderSummaryController.setOrderScreenController(this);
+        	orderSummaryController.setListView(order.toArrayList());
+        	
+        	Scene newScene = new Scene(root);
+        	Stage newStage = new Stage();
+        	
+        	newStage.setScene(newScene);
+        	newStage.show();
+        	
+        	
+        } catch(IOException e) {
+        	e.printStackTrace();
+        }
+    	
     }
-
-
+    
+    
+ 
 }
