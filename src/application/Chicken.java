@@ -1,11 +1,13 @@
 package application;
 
+
 public class Chicken extends Sandwich {
 	
 	private static final double basePrice = 8.99;
 	
 	@Override
 	public boolean add(Object obj) {
+		
 		
 		// Adds extra ingredient into extras ArrayList
 		if (extras.size() < 6) {
@@ -64,6 +66,17 @@ public class Chicken extends Sandwich {
 		String sandwichOrder = "Chicken " + super.toString() + " Fried Chicken, Spicy Sauce, Pickles, Extra: " + extraIngredients + "Price $" + priceItem;
 		
 		return sandwichOrder;
+		
+	}
+	
+	public double getPrice() {
+		return basePrice;
+	}
+	
+	public static void main(String[] args) {
+		
+		Chicken chicken1 = new Chicken();
+		System.out.println(chicken1.price());
 		
 	}
 	

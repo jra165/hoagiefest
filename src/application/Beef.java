@@ -7,6 +7,7 @@ public class Beef extends Sandwich {
 	@Override
 	public boolean add(Object obj) {
 		
+		
 		// Adds extra ingredient into extras ArrayList
 		if (extras.size() < 6) {
 			// Loop to check if the ingredient already exists in the list
@@ -43,7 +44,11 @@ public class Beef extends Sandwich {
 	public double price() {
 		
 		// Calculate final price of chicken sandwich which is defined as base price plus # extra ingredients times price per ingredient
-		double finalPrice = basePrice + extras.size()*PER_EXTRA;
+		double finalPrice = basePrice;
+		
+		if(extras != null) {
+			finalPrice = basePrice + extras.size()*PER_EXTRA;
+		}
 		
 		return finalPrice;
 		
@@ -66,6 +71,10 @@ public class Beef extends Sandwich {
 		
 		return sandwichOrder;
 		
+	}
+	
+	public double getPrice() {
+		return basePrice;
 	}
 
 }
