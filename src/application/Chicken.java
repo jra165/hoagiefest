@@ -1,6 +1,5 @@
 package application;
 
-
 public class Chicken extends Sandwich {
 	
 	private static final double basePrice = 8.99;
@@ -8,11 +7,18 @@ public class Chicken extends Sandwich {
 	@Override
 	public boolean add(Object obj) {
 		
-		
 		// Adds extra ingredient into extras ArrayList
-		if (extras.size() < 6) {
+			
+		//System.out.println("Enter1");
+		if (extras.size() == 0) {
+			extras.add((Extra) obj);
+		}
+		
+		else if (extras.size() < 6) {
+			//System.out.println("Enter2");
 			// Loop to check if the ingredient already exists in the list
 			for (int i = 0; i < extras.size(); i++) {
+				//System.out.println("Enter3");
 				if (!extras.get(i).equals(obj)) {
 					extras.add((Extra) obj);
 					return true;
@@ -20,6 +26,7 @@ public class Chicken extends Sandwich {
 			}
 			
 		}
+		
 		
 		return false;
 	}
@@ -45,7 +52,9 @@ public class Chicken extends Sandwich {
 	public double price() {
 		
 		// Calculate final price of chicken sandwich which is defined as base price plus # extra ingredients times price per ingredient
+		
 		double finalPrice = basePrice + extras.size()*PER_EXTRA;
+		
 		
 		return finalPrice;
 		
@@ -66,17 +75,6 @@ public class Chicken extends Sandwich {
 		String sandwichOrder = "Chicken " + super.toString() + " Fried Chicken, Spicy Sauce, Pickles, Extra: " + extraIngredients + "Price $" + priceItem;
 		
 		return sandwichOrder;
-		
-	}
-	
-	public double getPrice() {
-		return basePrice;
-	}
-	
-	public static void main(String[] args) {
-		
-		Chicken chicken1 = new Chicken();
-		System.out.println(chicken1.price());
 		
 	}
 	
