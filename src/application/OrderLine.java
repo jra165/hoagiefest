@@ -16,11 +16,19 @@ public class OrderLine {
 		return lineNumber;
 	}*/
 	
+	public Sandwich getSandwich() {
+		return this.sandwich;
+	}
+	
 	public double getPrice() {		
 		return price;
 	}
 	
-	public void setLineNumber() {
+	public void setLineNumber(int num) {
+		this.lineNumber = num;
+	}
+	
+	public void adjustLineNumber() {
 		this.lineNumber = this.lineNumber-1;
 	}
 	

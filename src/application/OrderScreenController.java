@@ -109,7 +109,9 @@ public class OrderScreenController {
     	
     	sandwichType.setValue("Chicken");
     	sandwichType.setItems(sandwichTypeList);
+    	
     	priceDisplay.setText(String.valueOf(sandwich.price()));
+    	priceDisplay.setEditable(false);
     	
     	basicIngredients.setText(chickenIngredients);
     	basicIngredients.setDisable(true);
@@ -130,7 +132,7 @@ public class OrderScreenController {
     		ingredientList.remove(itemToAdd);
     		addOnList.add(itemToAdd);
     		
-    		double sandwichPrice = sandwich.price();
+    		//double sandwichPrice = sandwich.price();
     		priceDisplay.setText(String.format("%.2f", sandwich.price()));
 
     	}
@@ -144,11 +146,29 @@ public class OrderScreenController {
     @FXML
     void addOrder(ActionEvent event) {
     	
+    	System.out.println("INGREDIENTS ADDED: " + sandwich.extras.toString());
+    	System.out.println("PRICE: " + sandwich.price());
+    	
+    	
     	OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), sandwich, sandwich.price());
     	order.add(sandwich_orderline);
     	
-    	//System.out.print(order.printOrder());
-    	System.out.println("DONE");
+    	
+    	// Clear Selection method
+    	sandwich = new Chicken();
+    	
+    	sandwichType.setValue("Chicken");
+    	sandwichType.setItems(sandwichTypeList);
+    	priceDisplay.setText(String.valueOf(sandwich.price()));
+    	
+    	basicIngredients.setText(chickenIngredients);
+    	basicIngredients.setDisable(true);
+    	
+    	ingredientList = FXCollections.observableArrayList(ingredients);
+    	addOnList = FXCollections.observableArrayList(addOns);
+    	
+    	ingredientSelect.setItems(ingredientList);
+    	extraIngredientDisplay.setItems(addOnList);
     	
     }
     
@@ -255,14 +275,15 @@ public class OrderScreenController {
         	Parent root = loader.load();
         	
         	OrderSummaryController orderSummaryController = loader.getController();
-        	//orderSummaryController.setOrderScreenController(this);
-        	orderSummaryController.setListView(order.toArrayList());
+        	orderSummaryController.setOrderScreenController(this);
+        	//orderSummaryController.setListView(order.toArrayList());
+        	
         	
         	Scene newScene = new Scene(root);
-        	Stage newStage = new Stage();
+        	Stage stage = (Stage)orderButton.getScene().getWindow();
         	
-        	newStage.setScene(newScene);
-        	newStage.show();
+        	stage.setScene(newScene);
+        	stage.show();
         	
         	
         } catch(IOException e) {
