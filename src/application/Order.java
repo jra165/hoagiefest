@@ -15,6 +15,14 @@ public class Order implements Customizable {
 		return lineNumber;
 	}
 	
+	public void resetLineNumber() {
+		lineNumber = 0;
+	}
+	
+	public void resetOrderLines() {
+		orderlines.clear();
+	}
+	
 	
 	@Override
 	public boolean add(Object obj) {
@@ -45,7 +53,7 @@ public class Order implements Customizable {
 		
 		// for loop to renumber the orders based on where it is removed from
 		for (int i = index; i < orderlines.size(); i++) {
-			orderlines.get(i).setLineNumber();		// sets the line number of the orderline to the current - 1
+			orderlines.get(i).adjustLineNumber();		// sets the line number of the orderline to the current - 1
 		}
 		
 		if (orderlines.size() < temp) {
@@ -98,26 +106,33 @@ public class Order implements Customizable {
 		
 		ArrayList<String> output=new ArrayList<String>();
 		
+		System.out.println("LINE #: " + lineNumber);
+		System.out.println("ORDERLINE LEN #: " + orderlines.size());
+		
 		if(lineNumber > 0) {
 			
 			for(int i = 0; i < lineNumber; i++) {
-				
+				System.out.println(orderlines.get(i).toString());
 				output.add(orderlines.get(i).toString());
 				
 			}
 			
 		}
 		
-		else {
-			
-			output.add("Empty order.");
-			
-		}
 		
 		return output;
 		
 		
 	}
-	
+
+
+	public ArrayList<OrderLine> getOrderlines() {
+		return orderlines;
+	}
+
+
+	public void setOrderlines(ArrayList<OrderLine> orderlines) {
+		this.orderlines = orderlines;
+	}
 	
 }
