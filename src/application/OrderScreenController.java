@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +20,7 @@ import javafx.scene.image.ImageView;
 
 public class OrderScreenController {
 	
-	List<String> ingredients = Extra.getValues();
+	ArrayList<String> ingredients = Extra.getValues();
 	ArrayList<String> addOns = new ArrayList<String>();
 	
 	ObservableList<String> sandwichTypeList = FXCollections.observableArrayList
@@ -75,7 +74,7 @@ public class OrderScreenController {
     	
     	final double DEFAULT_PRICE = 8.99;
     	
-    	sandwichType.setValue("Chicken");
+    	sandwichType.setValue(sandwichTypeList.get(0));
     	sandwichType.setItems(sandwichTypeList);
     	priceDisplay.setText(String.valueOf(DEFAULT_PRICE));
     	
@@ -104,6 +103,7 @@ public class OrderScreenController {
     			
     			if(e.toString().equals(itemToAdd)) {
     				chicken.add(e);
+    				debugArea.setText("Good!");
     			}
     			
     		}
@@ -137,7 +137,7 @@ public class OrderScreenController {
     				beef.add(e);
     			}
     			
-    		}
+   		}
     		
     		beef.add(itemToAdd);
     		ingredientList.remove(itemToAdd);
@@ -193,7 +193,7 @@ public class OrderScreenController {
     	
     	if(sandwichMeat.equals("Chicken")) { 
     		Chicken chicken = new Chicken();
-    		priceDisplay.setText(String.valueOf(chicken.price()));
+    		priceDisplay.setText(String.valueOf(chicken.getPrice()));
     		basicIngredients.setText(chickenIngredients);
     		
     		InputStream sandwichLink = new URL("https://www.cfacdn.com/img/order/COM/Menu_Refresh/Sides/Sides%20PDP/_0000s_0013_Final__0052_CFA_PDP_Spicy-Chick-Fil-A-Sandwich_1085.png").openStream();
@@ -204,7 +204,7 @@ public class OrderScreenController {
     	
     	else if(sandwichMeat.equals("Fish")) {
     		Fish fish = new Fish();
-    		priceDisplay.setText(String.valueOf(fish.price()));
+    		priceDisplay.setText(String.valueOf(fish.getPrice()));
     		basicIngredients.setText(fishIngredients);
     		
     		InputStream sandwichLink = new URL("https://mcdonalds.eg/Cms_Data/Contents/En/Media/images/Menu/large-Image/Filet-O-Fish.png").openStream();
@@ -217,7 +217,7 @@ public class OrderScreenController {
     	else {
     		
     		Beef beef = new Beef();
-    		priceDisplay.setText(String.valueOf(beef.price()));
+    		priceDisplay.setText(String.valueOf(beef.getPrice()));
     		basicIngredients.setText(beefIngredients);
     		
     		InputStream sandwichLink = new URL("https://arbysrva.com/wp-content/uploads/RoastBeef_Classic.png").openStream();
