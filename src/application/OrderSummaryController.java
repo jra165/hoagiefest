@@ -26,6 +26,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class OrderSummaryController {
 
+    Order order = new Order();
+	
     @FXML
     private ListView<String> orderTextArea;
 
@@ -47,7 +49,6 @@ public class OrderSummaryController {
     @FXML
     private Button saveButton;
 
-    Order order = new Order();
     
     
     void setOrderScreenController(OrderScreenController orderScreenController) {
@@ -57,6 +58,7 @@ public class OrderSummaryController {
     	
     	ObservableList<String> orderLinesList = FXCollections.observableArrayList(order.toArrayList());
     	orderTextArea.setItems(orderLinesList);
+    	priceTextField.setEditable(false);
     	priceTextField.setText(String.format("%.2f", order.price()));
     }
     
@@ -165,9 +167,16 @@ public class OrderSummaryController {
         	Parent root = loader.load();
         	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         	
+        	
+        	OrderScreenController orderScreenController = loader.getController();
+        	orderScreenController.setOrderSummaryController(this);
+        	
         	Scene newScene = new Scene(root);
         	stage.setScene(newScene);
         	stage.show();
+        	
+        	
+        	
     	}
     	catch(IOException e) {
     		e.printStackTrace();
@@ -211,10 +220,6 @@ public class OrderSummaryController {
 
     }
     
-    /*public void setListView(ArrayList<String> orderLines) {
-    	ObservableList<String> orderLinesList = FXCollections.observableArrayList(orderLines);
-    	orderTextArea.setItems(orderLinesList);
-    }*/
 
 
 }

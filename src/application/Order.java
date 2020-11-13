@@ -12,6 +12,11 @@ public class Order implements Customizable {
 		return lineNumber;
 	}
 	
+	public ArrayList<OrderLine> getOrderlines() {
+		return orderlines;
+	}
+	
+	
 	public void resetLineNumber() {
 		lineNumber = 0;
 	}
@@ -123,13 +128,6 @@ public class Order implements Customizable {
 	}
 
 
-	public ArrayList<OrderLine> getOrderlines() {
-		return orderlines;
-	}
 
-
-	public void setOrderlines(ArrayList<OrderLine> orderlines) {
-		this.orderlines = orderlines;
-	}
 	
 }
