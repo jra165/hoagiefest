@@ -97,14 +97,14 @@ public class Fish extends Sandwich {
 		double priceItem = price();
 		
 		if (extras.size() > 0) {
-			sandwichOrder = "Chicken " + super.toString() + 
-					" Fried Chicken, Spicy Sauce, Pickles, Extra: " + 
+			sandwichOrder = "Fish " + super.toString() + 
+					" Grilled Snapper, Cilantro, Lime, Extra: " + 
 					extraIngredients + "Price $" + priceItem;
 		}
 		else {
 			extraIngredients.append("None, ");
-			sandwichOrder = "Chicken " + super.toString() + 
-			" Fried Chicken, Spicy Sauce, Pickles, Extra: " + 
+			sandwichOrder = "Fish " + super.toString() + 
+			" Grilled Snapper, Cilantro, Lime, Extra: " + 
 			extraIngredients + "Price $" + priceItem;
 			
 		}

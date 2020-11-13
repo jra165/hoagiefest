@@ -97,14 +97,14 @@ public class Beef extends Sandwich {
 		double priceItem = price();
 		
 		if (extras.size() > 0) {
-			sandwichOrder = "Chicken " + super.toString() + 
-					" Fried Chicken, Spicy Sauce, Pickles, Extra: " + 
+			sandwichOrder = "Beef " + super.toString() + 
+					" Roast Beef, Provolone Cheese, Mustard, Extra: " + 
 					extraIngredients + "Price $" + priceItem;
 		}
 		else {
 			extraIngredients.append("None, ");
-			sandwichOrder = "Chicken " + super.toString() + 
-			" Fried Chicken, Spicy Sauce, Pickles, Extra: " + 
+			sandwichOrder = "Beef " + super.toString() + 
+			" Roast Beef, Provolone Cheese, Mustard, Extra: " + 
 			extraIngredients + "Price $" + priceItem;
 			
 		}
