@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * The Order class implements the Customizable interface.
  * Order class represents an order of sandwiches as an ArrayList of OrderLines.
  * Properties include lineNumber
- * Methods include getLineNumber, getOrderLines, resetLineNumber, restartOrderLines, add, remove
+ * Methods include getLineNumber, getOrderLines, restartOrderLines, add, remove
  * price, printOrder, toArrayList
  * @author Joshua Atienza, Kyle Lee
  *
@@ -35,18 +35,11 @@ public class Order implements Customizable {
 	
 	
 	/**
-	 * Resets the line number of an order line
-	 */
-	public void resetLineNumber() {
-		lineNumber = 0;
-	}
-	
-	
-	/**
 	 * Clears the orderlines ArrayList
 	 */
 	public void resetOrderLines() {
 		orderlines.clear();
+		lineNumber -= lineNumber;
 	}
 	
 	

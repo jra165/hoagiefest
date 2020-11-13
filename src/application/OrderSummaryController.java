@@ -122,7 +122,6 @@ public class OrderSummaryController {
     @FXML
     void clearOrder(ActionEvent event) {
     	
-    	order.resetLineNumber();
     	order.resetOrderLines();
   
 		ObservableList<String> orderLinesList = FXCollections.observableArrayList(order.toArrayList());
