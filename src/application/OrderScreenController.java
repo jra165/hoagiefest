@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +23,16 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
+
+/**
+ * The OrderScreenController is the class that integrates the logic of application into the UI
+ * This class handles adding a sandwich and its respective extras to the order.
+ * UI components shown below
+ * Methods include checkIngredientList, setOrderSummaryController, initialize, addIngredient, 
+ * addOrder, clearSelections, removeIngredient, changeSandwich, showOrder - all of which are described below
+ * @author Joshua Atienza, Kyle Lee
+ *
+ */
 public class OrderScreenController {
 	
 	ArrayList<String> ingredients = Extra.getValues();
@@ -76,13 +85,17 @@ public class OrderScreenController {
     private TextArea debugArea;
     
     
-    
+    /**
+     * Compares ingredient with extras in Extra enum class and adds to sandwich accordingly
+     * @param sandwich The sandwich taking on the extras
+     * @param ingredient The ingredient being added to the sandwich
+     * @param action The action of either adding or removing to/from the sandwich
+     */
     private void checkIngredientList(Sandwich sandwich, String ingredient, String action) {
     	
     	if (action.equals("add")) {
     		for(Extra e : Extra.values()) {
     			if(e.toString().equalsIgnoreCase(ingredient)) {
-    				//System.out.println(e.toString());
     				sandwich.add(e);
     			}
     		}
@@ -90,7 +103,6 @@ public class OrderScreenController {
     	else if (action.equals("remove")) {
     		for(Extra e : Extra.values()) {
     			if(e.toString().equalsIgnoreCase(ingredient)) {
-    				//System.out.println(e.toString());
     				sandwich.remove(e);
     			}
     		}
@@ -99,15 +111,21 @@ public class OrderScreenController {
     }
     
     
+    /**
+     * Passes the Order object between the OrderSummaryController and OrderScreenController
+     * @param orderSummaryController The controller that handles the OrderSummary scene
+     */
     void setOrderSummaryController(OrderSummaryController orderSummaryController) {
     	order = orderSummaryController.order;
     }
     
-    //find out if this should be private
+    
+    
+    /**
+     * Initializes the OrderScreen to its default settings
+     */
     @FXML
     private void initialize() {
-    	
-    	//final double DEFAULT_PRICE = 8.99;
     	
     	sandwich = new Chicken();
     	
@@ -125,20 +143,23 @@ public class OrderScreenController {
     	
     }
  
-    //add will move an ingredient from left to right, increase price
+    
+
+    /**
+     * Adds a selected extra ingredient to the sandwich, increases price
+     * @param event The semantic event that indicates a user clicked 'Add>>'
+     */
     @FXML
     void addIngredient(ActionEvent event) {
     	
     	String itemToAdd = ingredientSelect.getSelectionModel().getSelectedItem();
-    	//System.out.println("THIS IS ING: " + itemToAdd);
+    	final double MAX_INGREDIENTS = 6;
     	
     	if (itemToAdd != null) {
-    		if (addOnList.size() < 6) {
+    		if (addOnList.size() < MAX_INGREDIENTS) {
         		checkIngredientList(sandwich, itemToAdd, "add");
         		ingredientList.remove(itemToAdd);
         		addOnList.add(itemToAdd);
-        		
-        		//double sandwichPrice = sandwich.price();
         		priceDisplay.setText(String.format("%.2f", sandwich.price()));
 
         	}
@@ -150,19 +171,19 @@ public class OrderScreenController {
     }
 
 
+    /**
+     * Adds a sandwich to a new OrderLine, and then adds that OrderLine to the Order
+     * @param event The semantic event that indicates a user clicked 'Add to Order'
+     */
     @FXML
     void addOrder(ActionEvent event) {
-    	
-    	System.out.println("INGREDIENTS ADDED: " + sandwich.extras.toString());
-    	System.out.println("PRICE: " + sandwich.price());
-    	
-    	
+     	
     	OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), sandwich, sandwich.price());
     	order.add(sandwich_orderline);
     	
     	debugArea.appendText("Sandwich created and order line added to order.\n");
     	
-    	// Clear Selection method
+    	//clears current sandwich selections
     	sandwich = new Chicken();
     	
     	sandwichType.setValue("Chicken");
@@ -180,7 +201,11 @@ public class OrderScreenController {
     	
     }
     
-    //clear will reset back to the defaults
+    
+    /**
+     * Clears the current selection and resets back to default settings
+     * @param event The semantic event that indicates a user clicked 'Clear Selected'
+     */
     @FXML
     void clearSelections(ActionEvent event) {
     	sandwich = new Chicken();
@@ -201,7 +226,11 @@ public class OrderScreenController {
     	
     }
 
-    //remove will move an ingredient from right to left, decrease price
+    
+    /**
+     * Moves an ingredient from right to left in the removal process, decrease price
+     * @param event The semantic event that indicates a user clicked '<<Remove'
+     */
     @FXML
     void removeIngredient(ActionEvent event) {
     	
@@ -218,6 +247,13 @@ public class OrderScreenController {
     	
     }
     
+    
+    /**
+     * Changes the default ingredients, photo of each sandwich type when sandwich types are chosen
+     * @param event The semantic event that indicates a user clicked either 'Chicken', 'Fish', or 'Beef'
+     * @throws MalformedURLException The exception thrown if URL to image failed
+     * @throws IOException The exception thrown if invalid input provided
+     */
     @FXML
     void changeSandwich(ActionEvent event) throws MalformedURLException, IOException {
     	 
@@ -278,6 +314,11 @@ public class OrderScreenController {
 
     }
     
+    
+    /**
+     * Switches scenes to the OrderSummary view
+     * @param event The semantic event that indicates a user clicked 'Show Order'
+     */
     @FXML
     void showOrder(ActionEvent event) {
     	
