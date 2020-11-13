@@ -85,17 +85,29 @@ public class Fish extends Sandwich {
 	public String toString() {
 		
 		StringBuilder extraIngredients = new StringBuilder();
+		String sandwichOrder;
 		
 		for (int i = 0; i < extras.size(); i++) {
-			extraIngredients.append(extras.get(i));
+			String ingredient  = extras.get(i).toString(); 
+			ingredient = ingredient.substring(0,1).toUpperCase() + ingredient.substring(1).toLowerCase();
+			extraIngredients.append(ingredient);
 			extraIngredients.append(", ");
 		}
 		
 		double priceItem = price();
 		
-		String sandwichOrder = "Fish " + super.toString() + 
-				" Grilled Snapper, Cilantro, Lime, Extra: " + 
-				extraIngredients + "Price $" + priceItem;
+		if (extras.size() > 0) {
+			sandwichOrder = "Chicken " + super.toString() + 
+					" Fried Chicken, Spicy Sauce, Pickles, Extra: " + 
+					extraIngredients + "Price $" + priceItem;
+		}
+		else {
+			extraIngredients.append("None, ");
+			sandwichOrder = "Chicken " + super.toString() + 
+			" Fried Chicken, Spicy Sauce, Pickles, Extra: " + 
+			extraIngredients + "Price $" + priceItem;
+			
+		}
 		
 		return sandwichOrder;
 		

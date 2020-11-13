@@ -41,14 +41,6 @@ public class OrderLine {
 	}
 	
 	/**
-	 * Sets the line number of the OrderLine
-	 * @param num The line number that the OrderLine will be set to
-	 */
-	public void setLineNumber(int num) {
-		this.lineNumber = num;
-	}
-	
-	/**
 	 * Decrements line number by 1
 	 */
 	public void adjustLineNumber() {

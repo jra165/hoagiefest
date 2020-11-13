@@ -38,6 +38,10 @@ public class OrderScreenController {
 	ObservableList<String> ingredientList = FXCollections.observableArrayList(ingredients);
 	ObservableList<String> addOnList = FXCollections.observableArrayList(addOns);
 	
+    public Order order = new Order();
+    Sandwich sandwich;
+	
+	
     @FXML
     private ComboBox<String> sandwichType;
 
@@ -71,8 +75,6 @@ public class OrderScreenController {
     @FXML
     private TextArea debugArea;
     
-    public Order order = new Order();
-    Sandwich sandwich;
     
     
     private void checkIngredientList(Sandwich sandwich, String ingredient, String action) {
@@ -97,7 +99,9 @@ public class OrderScreenController {
     }
     
     
-    
+    void setOrderSummaryController(OrderSummaryController orderSummaryController) {
+    	order = orderSummaryController.order;
+    }
     
     //find out if this should be private
     @FXML
@@ -126,20 +130,23 @@ public class OrderScreenController {
     void addIngredient(ActionEvent event) {
     	
     	String itemToAdd = ingredientSelect.getSelectionModel().getSelectedItem();
+    	//System.out.println("THIS IS ING: " + itemToAdd);
     	
-    	if (addOnList.size() < 6) {
-    		checkIngredientList(sandwich, itemToAdd, "add");
-    		ingredientList.remove(itemToAdd);
-    		addOnList.add(itemToAdd);
-    		
-    		//double sandwichPrice = sandwich.price();
-    		priceDisplay.setText(String.format("%.2f", sandwich.price()));
+    	if (itemToAdd != null) {
+    		if (addOnList.size() < 6) {
+        		checkIngredientList(sandwich, itemToAdd, "add");
+        		ingredientList.remove(itemToAdd);
+        		addOnList.add(itemToAdd);
+        		
+        		//double sandwichPrice = sandwich.price();
+        		priceDisplay.setText(String.format("%.2f", sandwich.price()));
 
+        	}
+        	else {
+        		debugArea.appendText("Maximum of 6 ingredients already added.\n");
+        	}
     	}
-    	else {
-    		debugArea.appendText("Maximum of 6 ingredients already added.\n");
-    	}
-  	
+    	
     }
 
 
@@ -153,6 +160,7 @@ public class OrderScreenController {
     	OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), sandwich, sandwich.price());
     	order.add(sandwich_orderline);
     	
+    	debugArea.appendText("Sandwich created and order line added to order.\n");
     	
     	// Clear Selection method
     	sandwich = new Chicken();
@@ -196,13 +204,17 @@ public class OrderScreenController {
     //remove will move an ingredient from right to left, decrease price
     @FXML
     void removeIngredient(ActionEvent event) {
+    	
     	String itemToRemove = extraIngredientDisplay.getSelectionModel().getSelectedItem();
     	
-    	checkIngredientList(sandwich, itemToRemove, "remove");
-    	addOnList.remove(itemToRemove);
-    	ingredientList.add(itemToRemove);
+    	if (itemToRemove != null) {
+    		checkIngredientList(sandwich, itemToRemove, "remove");
+        	addOnList.remove(itemToRemove);
+        	ingredientList.add(itemToRemove);
+        	
+        	priceDisplay.setText(String.format("%.2f", sandwich.price()));
+    	}
     	
-    	priceDisplay.setText(String.format("%.2f", sandwich.price()));
     	
     }
     
