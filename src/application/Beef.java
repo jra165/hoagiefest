@@ -1,41 +1,56 @@
 package application;
 
+/**
+ * Beef is a subclass of Sandwich with the properties and methods associated with the Beef object
+ * Properties and methods inherited from the Sandwich class and Customizable interface
+ * Additional methods include price
+ * @author Joshua Atienza, Kyle lee
+ */
 public class Beef extends Sandwich {
 
-	private static final double basePrice = 10.99;
+	//the base price of Beef
+	private static final double BASE_PRICE = 10.99;		
 	
+	//the max number of extras that can be added
+	private static final double MAX_EXTRAS = 6;
+	
+	/**
+	 * Adds an extra ingredient to the Beef sandwich
+	 * @param obj The object (extra) to be added to the Beef sandwich
+	 * @return true if extra successfully added, otherwise false
+	 */
 	@Override
 	public boolean add(Object obj) {
 		
-		// Adds extra ingredient into extras ArrayList
-			
-		//System.out.println("Enter1");
 		if (extras.size() == 0) {
 			extras.add((Extra) obj);
 		}
 		
-		else if (extras.size() < 6) {
-			//System.out.println("Enter2");
+		else if (extras.size() < MAX_EXTRAS) {
+			
 			// Loop to check if the ingredient already exists in the list
 			for (int i = 0; i < extras.size(); i++) {
-				//System.out.println("Enter3");
 				if (!extras.get(i).equals(obj)) {
 					extras.add((Extra) obj);
 					return true;
 				}
 			}
-			
 		}
-		
-		
+
 		return false;
 	}
 
+	
+	/**
+	 * Removes an extra ingredient from the Beef sandwich
+	 * @param obj The object (extra) to be removed from the Beef sandwich
+	 * @return true if extra successfully removed, otherwise false
+	 */
 	@Override
 	public boolean remove(Object obj) {
-		
-		// Removes extra ingredient from extras ArrayList
+	
 		if (extras.size() > 0) {
+			
 			// Loop to check if the ingredient exists in the list
 			for (int i = 0; i < extras.size(); i++) {
 				if (extras.get(i).equals(obj)) {
@@ -48,19 +63,24 @@ public class Beef extends Sandwich {
 		return false;
 	}
 
+	
+	/**
+	 * Calculates final price of Beef sandwich
+	 * Formula is base price + number of extras*cost of individual extra
+	 * @return finalPrice The overall price of the Beef sandwich
+	 */
 	@Override
 	public double price() {
 		
-		// Calculate final price of chicken sandwich which is defined as base price plus # extra ingredients times price per ingredient
-		
-		double finalPrice = basePrice + extras.size()*PER_EXTRA;
-		
-		
+		double finalPrice = BASE_PRICE + extras.size()*PER_EXTRA;
 		return finalPrice;
 		
 	}
 
-	
+	/**
+	 * Converts Beef sandwich to its String representation
+	 * @return sandwichOrder The String representation of the Beef sandwich
+	 */
 	@Override
 	public String toString() {
 		
@@ -73,7 +93,9 @@ public class Beef extends Sandwich {
 		
 		double priceItem = price();
 		
-		String sandwichOrder = "Beef " + super.toString() + " Roast Beef, Provolone, Mustard, Extra: " + extraIngredients + "Price $" + priceItem;
+		String sandwichOrder = "Beef " + super.toString() + 
+				" Roast Beef, Provolone, Mustard, Extra: " + 
+				extraIngredients + "Price $" + priceItem;
 		
 		return sandwichOrder;
 		
