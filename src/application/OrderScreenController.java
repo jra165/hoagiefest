@@ -276,12 +276,10 @@ public class OrderScreenController {
         	
         	OrderSummaryController orderSummaryController = loader.getController();
         	orderSummaryController.setOrderScreenController(this);
-        	//orderSummaryController.setListView(order.toArrayList());
-        	
         	
         	Scene newScene = new Scene(root);
-        	Stage stage = (Stage)orderButton.getScene().getWindow();
-        	
+        	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+       
         	stage.setScene(newScene);
         	stage.show();
         	

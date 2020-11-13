@@ -1,9 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javafx.collections.ObservableList;
 
 public class Order implements Customizable {
 
