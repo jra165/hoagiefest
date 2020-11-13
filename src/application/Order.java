@@ -2,34 +2,61 @@ package application;
 
 import java.util.ArrayList;
 
+/**
+ * The Order class implements the Customizable interface.
+ * Order class represents an order of sandwiches as an ArrayList of OrderLines.
+ * Properties include lineNumber
+ * Methods include getLineNumber, getOrderLines, resetLineNumber, restartOrderLines, add, remove
+ * price, printOrder, toArrayList
+ * @author Joshua Atienza, Kyle Lee
+ *
+ */
 public class Order implements Customizable {
 
 	public static int lineNumber = 0; // reset for each new order
 	private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 	
-	
+	/**
+	 * Gets the line number of an item in orderlines
+	 * @return lineNumber The line number of an OrderLine in orderlines
+	 */
 	public int getLineNumber() {
 		return lineNumber;
 	}
 	
+	
+	/**
+	 * Gets the orderlines in the Order object
+	 * @return orderlines The orderlines within the specific Order
+	 */
 	public ArrayList<OrderLine> getOrderlines() {
 		return orderlines;
 	}
 	
 	
+	/**
+	 * Resets the line number of an order line
+	 */
 	public void resetLineNumber() {
 		lineNumber = 0;
 	}
 	
+	
+	/**
+	 * Clears the orderlines ArrayList
+	 */
 	public void resetOrderLines() {
 		orderlines.clear();
 	}
 	
 	
+	/**
+	 * Adds an object (OrderLine) to orderlines
+	 * @param obj The obj being added to orderlines
+	 * @return true if obj successfully added, false otherwise
+	 */
 	@Override
 	public boolean add(Object obj) {
-	
-		// Come back later to reconsider when adding an orderline might fail
 		
 		int temp = orderlines.size();
 		orderlines.add((OrderLine) obj);
@@ -41,9 +68,15 @@ public class Order implements Customizable {
 		
 		
 		return false;
+		
 	}
 
 	
+	/**
+	 * Removes an object (OrderLine) from orderlines
+	 * @param obj The obj being removed from orderlines
+	 * @return true if obj successfully removed, false otherwise
+	 */
 	@Override
 	public boolean remove(Object obj) {
 		
@@ -53,9 +86,12 @@ public class Order implements Customizable {
 		orderlines.remove(obj);
 		
 		
-		// for loop to renumber the orders based on where it is removed from
+		// renumber the orders based on where it is removed from
 		for (int i = index; i < orderlines.size(); i++) {
-			orderlines.get(i).adjustLineNumber();		// sets the line number of the orderline to the current - 1
+			
+			// sets the line number of the orderline to the current - 1
+			orderlines.get(i).adjustLineNumber();
+			
 		}
 		
 		if (orderlines.size() < temp) {
@@ -67,6 +103,10 @@ public class Order implements Customizable {
 	}
 	
 	
+	/**
+	 * Returns the total price of the overall order
+	 * @return total The total price of all orderlines added together
+	 */
 	public double price() {
 		
 		double total = 0;
@@ -79,6 +119,11 @@ public class Order implements Customizable {
 		
 	}
 	
+	
+	/**
+	 * Prints the entire order
+	 * @return output The String representation of orderlines
+	 */
 	public String printOrder() {
 		
 		StringBuilder output = new StringBuilder("");
@@ -86,48 +131,36 @@ public class Order implements Customizable {
 		if(lineNumber > 0) {
 			
 			for(int i = 0; i < lineNumber; i++) {
-				
 				output.append(orderlines.get(i).toString());
 				output.append("\n");
-				
 			}
 			
 		}
 		
 		else {
-			
 			output.append("Empty order.");
-			
 		}
 		
 		return output.toString();
 		
 	}
 	
+	/**
+	 * Converts orderlines to an ArrayList<String> representation
+	 * @return output The ArrayList<String> representation of orderlines
+	 */
 	public ArrayList<String> toArrayList(){
 		
 		ArrayList<String> output=new ArrayList<String>();
 		
-		System.out.println("LINE #: " + lineNumber);
-		System.out.println("ORDERLINE LEN #: " + orderlines.size());
-		
 		if(lineNumber > 0) {
-			
 			for(int i = 0; i < lineNumber; i++) {
-				System.out.println(orderlines.get(i).toString());
 				output.add(orderlines.get(i).toString());
-				
 			}
-			
 		}
-		
 		
 		return output;
 		
-		
 	}
-
-
-
 	
 }

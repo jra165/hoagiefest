@@ -4,8 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +22,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+
+/**
+ * The OrderSummaryController is the class that integrates the logic of application into the UI
+ * This class handles duplicating an OrderLine, removing them, and saving order to text file.
+ * UI components shown below
+ * Methods include setOrderScreenController, addSameOrder, clearOrder, removeOrder, returnOrder, saveOrder
+ * @author Joshua Atienza, Kyle Lee
+ *
+ */
 public class OrderSummaryController {
 
     Order order = new Order();
@@ -50,12 +57,12 @@ public class OrderSummaryController {
     private Button saveButton;
 
     
-    
+    /**
+     * Passes the Order object between OrderScreenController and OrderSummaryController
+     * @param orderScreenController The controller that handles the OrderScreen scene
+     */
     void setOrderScreenController(OrderScreenController orderScreenController) {
-    	order = orderScreenController.order;
-    	System.out.println(order.lineNumber);
-    	System.out.println(order.printOrder());
-    	
+    	order = orderScreenController.order;    	
     	ObservableList<String> orderLinesList = FXCollections.observableArrayList(order.toArrayList());
     	orderTextArea.setItems(orderLinesList);
     	priceTextField.setEditable(false);
@@ -63,25 +70,26 @@ public class OrderSummaryController {
     }
     
     
+    /**
+     * Adds a new OrderLine to the order with the same sandwich, ingredients, and price as the selected
+     * @param event The semantic event that indicates a user clicked '+ Same Order Line'
+     */
     @FXML
     void addSameOrder(ActionEvent event) {
     	
     	try {
     		String currOrderLine = orderTextArea.getSelectionModel().getSelectedItem();
         	
-        	// order --> access orderlines --> using index from currOrderLine match it with orderlines index --> create new orderline instance using the fields at that index
         	
-        	
-        	// line number, sandwich, price
         	String[] currOrderLineArr = currOrderLine.split("\\s+");
         	int index = Integer.valueOf(currOrderLineArr[0]);
         	
         	for (int i = 0; i < order.getOrderlines().size(); i++) {
         		if (i+1 == index) {
-        			// looking at specific orderline which has linenumber sandwich and price
         		
         			OrderLine target = order.getOrderlines().get(i);
-        			OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), target.getSandwich(), target.getPrice());
+        			OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), 
+        					target.getSandwich(), target.getPrice());
         			order.add(sandwich_orderline);
         					
         		}
@@ -93,6 +101,7 @@ public class OrderSummaryController {
     		ObservableList<String> orderLinesList = FXCollections.observableArrayList(order.toArrayList());
         	orderTextArea.setItems(orderLinesList);
         	priceTextField.setText(String.format("%.2f", order.price()));
+        	
     	}
     	catch (NullPointerException e) {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -105,24 +114,31 @@ public class OrderSummaryController {
     	
     }
 
+    
+    /**
+     * Clears the entire order and removes all order lines
+     * @param event The semantic event that indicates a user clicked 'Clear Order'
+     */
     @FXML
     void clearOrder(ActionEvent event) {
     	
     	order.resetLineNumber();
     	order.resetOrderLines();
-    	
+  
 		ObservableList<String> orderLinesList = FXCollections.observableArrayList(order.toArrayList());
     	orderTextArea.setItems(orderLinesList);
-    	
-    	//orderTextArea.getItems().clear();
     	priceTextField.clear();
 
     }
 
+    
+    /** 
+     * Removes a selected order line from the order
+     * @param event The semantic event that indicates a user clicked '- Remove Order Line'
+     */
     @FXML
     void removeOrder(ActionEvent event) {
-    	
-    	
+    		
     	try {
     		String currOrderLine = orderTextArea.getSelectionModel().getSelectedItem();
         	String[] currOrderLineArr = currOrderLine.split("\\s+");
@@ -132,10 +148,8 @@ public class OrderSummaryController {
         		
         		if (i+1 == index) {
         			
-        			// Finds the orderline object to be removed
+        			// Finds the OrderLine object to be removed
         			OrderLine target = order.getOrderlines().get(i); 
-        			
-        			
         			order.remove(target);
         			
         		}
@@ -144,9 +158,8 @@ public class OrderSummaryController {
         	
     		ObservableList<String> orderLinesList = FXCollections.observableArrayList(order.toArrayList());
         	orderTextArea.setItems(orderLinesList);
-        	
-        	double orderPrice = order.price();
         	priceTextField.setText(String.format("%.2f", order.price()));
+        	
     	}
     	catch (NullPointerException e) {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -159,6 +172,10 @@ public class OrderSummaryController {
     }
     
 
+    /**
+     * Switches to the OrderScreen scene
+     * @param event The semantic event that indicates a user clicked 'Back'
+     */
     @FXML
     void returnOrderScreen(ActionEvent event) {
     	
@@ -185,6 +202,10 @@ public class OrderSummaryController {
     	
     }
     
+    /**
+     * Exports the entire order to a .txt file
+     * @param event The semantic event that indicates a user clicked 'Save Order'
+     */
     @FXML
     void saveOrder(ActionEvent event) {
     	
