@@ -95,7 +95,7 @@ public class Chicken extends Sandwich {
 			extraIngredients.append(", ");
 		}
 		
-		double priceItem = price();
+		double priceItem = Double.valueOf(String.format("%2f", price()));
 		
 		if (extras.size() > 0) {
 			sandwichOrder = "Chicken " + super.toString() + 
