@@ -17,7 +17,7 @@
             <Button fx:id="removeButton" layoutX="159.0" layoutY="339.0" mnemonicParsing="false" onAction="#removeOrder" text="- Remove order line" />
             <Button fx:id="backButton" layoutX="159.0" layoutY="373.0" mnemonicParsing="false" onAction="#returnOrderScreen" prefHeight="27.0" prefWidth="124.0" text="Back" />
             <TextField fx:id="priceTextField" layoutX="448.0" layoutY="339.0" prefHeight="27.0" prefWidth="123.0" />
-            <Label layoutX="374.0" layoutY="344.0" text="Order Total" />
+            <Label layoutX="374.0" layoutY="344.0" text="Order Total $" />
             <Button fx:id="saveButton" layoutX="448.0" layoutY="373.0" mnemonicParsing="false" onAction="#saveOrder" prefHeight="27.0" prefWidth="124.0" text="Save Order to File" />
          </children>
       </AnchorPane>

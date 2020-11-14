@@ -1,7 +1,7 @@
 package application;
 
 /**
- * Customizable is the interface that will be implemented by Sandwich class
+ * Customizable is the interface that will be implemented by Sandwich, OrderLine, Order class
  * Boolean methods, add and remove, are implemented in Beef, Chicken, Fish
  * @author Joshua Atienza, Kyle Lee
  */

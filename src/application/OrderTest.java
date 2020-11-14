@@ -1,14 +1,7 @@
 package application;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,6 +12,10 @@ import org.junit.jupiter.api.Test;
  */
 class OrderTest {
 
+	/**
+	 * Test method for {@link Order#getLineNumber()}
+	 * Tests retrieving the line number of an Order object
+	 */
 	@Test
 	void testGetLineNumber() {
 		
@@ -31,12 +28,18 @@ class OrderTest {
 				cs, cs.price());
 		cfa.add(combo);
 	
+		//checks if expected line number and cfa's line number match
 		assertEquals(EXPECTED_LINE_NUMBER, cfa.getLineNumber());
 		
 		cfa.resetOrderLines();
 		
 	}
 
+	/**
+	 * Test method for {@link Order#getOrderlines()}
+	 * Tests if orderlines inside an Order object match the expected ArrayList of
+	 * OrderLine objects
+	 */
 	@Test
 	void testGetOrderlines() {
 		
@@ -63,11 +66,16 @@ class OrderTest {
 		expected_deli.add(orderline2);
 		expected_deli.add(orderline3);
 		
+		//checks if expected_deli and orderlines of deli object match
 		assertEquals(expected_deli, deli.getOrderlines());
 		
 	}
 	
-
+	
+	/**
+	 * Test method for {@link Order#resetOrderLines()}
+	 * Tests if an Order object is properly reset and cleared
+	 */
 	@Test
 	void testResetOrderLines() {
 		
@@ -82,6 +90,7 @@ class OrderTest {
 		
 		wendys.resetOrderLines();
 		
+		//checks if Order's line number is 0 after a reset
 		assertEquals(EXPECTED_RESET, wendys.getLineNumber());
 		
 		
@@ -100,6 +109,7 @@ class OrderTest {
 		OrderLine combo1 = new OrderLine(mcDonalds.getLineNumber(), 
 				mcChicken, mcChicken.price());
 		
+		//check if OrderLine combo1 successfully added to mcDonalds Order
 		assertTrue(mcDonalds.add(combo1));
 		
 		mcDonalds.resetOrderLines();
@@ -120,6 +130,8 @@ class OrderTest {
 				rbs, rbs.price());
 	
 		arbys.add(combo2);
+		
+		//checks if OrderLine combo2 successfully removed from arbys Order
 		assertTrue(arbys.remove(combo2));
 		
 		arbys.resetOrderLines();
@@ -134,7 +146,6 @@ class OrderTest {
 	void testPrice() {
 		
 		final double EXPECTED_PRICE = 18.96;
-		final double EXPECTED_INCORRECT_PRICE = 9.99;
 		
 		Order mickeyDees = new Order();
 		
@@ -147,25 +158,20 @@ class OrderTest {
 				fof, fof.price());
 		mickeyDees.add(combo3);
 		
+		//checks if expected total and actual price of mickeyDees Order match
 		assertEquals(EXPECTED_PRICE, mickeyDees.price());
-		
-		
-		
-		Beef hamburger = new Beef();
-		OrderLine combo4 = new OrderLine(mickeyDees.getLineNumber(), 
-				hamburger, hamburger.price());
-		mickeyDees.add(combo4);
-		
-		assertNotEquals(EXPECTED_INCORRECT_PRICE, 
-				mickeyDees.price());
-		
-		
+			
 		mickeyDees.resetOrderLines();
 		
 	}
-
+	
+	
+	/**
+	 * Test method for {@link Order#printOrder()()}
+	 * Tests if Order object is properly printed in String format
+	 */
 	@Test
-	void testPrintOrder() throws Exception{
+	void testPrintOrder() {
 		
 		//Expected String
 		String expectedString = "1 Chicken Sandwich; Fried Chicken, "
@@ -177,12 +183,19 @@ class OrderTest {
 				scs, scs.price());
 		popeyes.add(combo5);
 		
+		//checks if expected String and actual output match
 		assertEquals(expectedString, popeyes.printOrder());
 		
 		popeyes.resetOrderLines();
 
 	}
 
+	
+	/**
+	 * Test method for {@link Order#toArrayList()()}
+	 * Tests if Order object is properly converted to ArrayList String
+	 * format
+	 */
 	@Test
 	void testToArrayList() {
 		
@@ -205,6 +218,7 @@ class OrderTest {
 				parm, parm.price());
 		bodega.add(parmCombo);
 		
+		//Checks if expected ArrayList of orders matches actual output
 		assertEquals(expected_receipt, bodega.toArrayList());
 		
 		
