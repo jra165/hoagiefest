@@ -69,6 +69,8 @@ class OrderTest {
 		//checks if expected_deli and orderlines of deli object match
 		assertEquals(expected_deli, deli.getOrderlines());
 		
+		deli.resetOrderLines();
+		
 	}
 	
 	
@@ -221,7 +223,7 @@ class OrderTest {
 		//Checks if expected ArrayList of orders matches actual output
 		assertEquals(expected_receipt, bodega.toArrayList());
 		
-		
+		bodega.resetOrderLines();
 		
 	}
 

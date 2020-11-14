@@ -1,9 +1,6 @@
 package application;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -178,7 +175,8 @@ public class OrderScreenController {
     @FXML
     void addOrder(ActionEvent event) {
      	
-    	OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), sandwich, sandwich.price());
+    	OrderLine sandwich_orderline = new OrderLine(order.getLineNumber(), 
+    			sandwich, sandwich.price());
     	order.add(sandwich_orderline);
     	
     	debugArea.appendText("Sandwich created and order line added to order.\n");
@@ -251,11 +249,10 @@ public class OrderScreenController {
     /**
      * Changes the default ingredients, photo of each sandwich type when sandwich types are chosen
      * @param event The semantic event that indicates a user clicked either 'Chicken', 'Fish', or 'Beef'
-     * @throws MalformedURLException The exception thrown if URL to image failed
      * @throws IOException The exception thrown if invalid input provided
      */
     @FXML
-    void changeSandwich(ActionEvent event) throws MalformedURLException, IOException {
+    void changeSandwich(ActionEvent event) throws IOException {
     	 
     	String sandwichMeat = sandwichType.getValue();
     	
@@ -270,8 +267,7 @@ public class OrderScreenController {
         	ingredientSelect.setItems(ingredientList);
         	extraIngredientDisplay.setItems(addOnList);
     		
-    		InputStream sandwichLink = new URL("https://www.cfacdn.com/img/order/COM/Menu_Refresh/Sides/Sides%20PDP/_0000s_0013_Final__0052_CFA_PDP_Spicy-Chick-Fil-A-Sandwich_1085.png").openStream();
-    		Image chickenImage = new Image(sandwichLink);
+    		Image chickenImage = new Image("file:_0000s_0013_Final__0052_CFA_PDP_Spicy-Chick-Fil-A-Sandwich_1085.png");
     		sandwichImage.setImage(chickenImage);
     	
     	}
@@ -287,8 +283,7 @@ public class OrderScreenController {
         	ingredientSelect.setItems(ingredientList);
         	extraIngredientDisplay.setItems(addOnList);
     		
-    		InputStream sandwichLink = new URL("https://mcdonalds.eg/Cms_Data/Contents/En/Media/images/Menu/large-Image/Filet-O-Fish.png").openStream();
-    		Image fishImage = new Image(sandwichLink);
+        	Image fishImage = new Image("file:McDonalds-Filet-O-Fish-005-hero.png");
     		sandwichImage.setImage(fishImage);
     		
     		
@@ -306,8 +301,7 @@ public class OrderScreenController {
         	ingredientSelect.setItems(ingredientList);
         	extraIngredientDisplay.setItems(addOnList);
     		
-    		InputStream sandwichLink = new URL("https://arbysrva.com/wp-content/uploads/RoastBeef_Classic.png").openStream();
-    		Image beefImage = new Image(sandwichLink);
+    		Image beefImage = new Image("file:RoastBeef_Classic.png");
     		sandwichImage.setImage(beefImage);
     		
     	}	
